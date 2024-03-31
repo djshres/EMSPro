@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EMSPro.Data\EMSPro.Data.csproj" />
+    <ProjectReference Include="..\EMSPro.Models\EMSPro.Models.csproj" />
+  </ItemGroup>
+
 </Project>
