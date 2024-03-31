@@ -1,5 +1,7 @@
 ﻿using EMSPro.App.Helper;
 using EMSPro.Core.IService;
+using System;
+using System.Collections.Generic;
 
 namespace EMSPro.App
 {
@@ -8,6 +10,8 @@ namespace EMSPro.App
         private readonly IEmployeeService _employeeService;
         private readonly IDepartmentService _departmentService;
         private readonly IRoleService _roleService;
+        private bool _isLoggedIn = false;
+        private string _currentUser = null;
 
         public Application(IEmployeeService employeeService,
             IDepartmentService departmentService,
@@ -21,10 +25,10 @@ namespace EMSPro.App
         public void Processer()
         {
             DisplayMenu();
-            ProcessUserChoice(_departmentService, _employeeService, _roleService);
+            ProcessUserChoice();
         }
 
-        private static void DisplayMenu()
+        private void DisplayMenu()
         {
             Console.WriteLine("  EEEEE  M   M  SSSSS    PPPP    RRRR    OOO  ");
             Console.WriteLine("  E      MM MM  S        P   P   R   R  O   O ");
@@ -41,8 +45,7 @@ namespace EMSPro.App
             Console.WriteLine("7. Exit");
         }
 
-        private static void ProcessUserChoice(IDepartmentService _departmentService,
-            IEmployeeService _employeeService, IRoleService _roleService)
+        private void ProcessUserChoice()
         {
             bool exit = false;
             while (!exit)
@@ -57,14 +60,34 @@ namespace EMSPro.App
                         _employeeService.PrintAllEmployees(employees);
                         break;
                     case "2":
-                        _employeeService.AddEmployee();
+                        if (IsAdmin())
+                        {
+                            _employeeService.AddEmployee();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Only admin users can add employees.");
+                        }
                         break;
                     case "3":
-                        _employeeService.UpdateEmployee();
+                        if (IsAdmin())
+                        {
+                            _employeeService.UpdateEmployee();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Only admin users can update employees.");
+                        }
                         break;
                     case "4":
-                        Console.WriteLine("Call list service");
-                        _employeeService.DeleteEmployee();
+                        if (IsAdmin())
+                        {
+                            _employeeService.DeleteEmployee();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Only admin users can delete employees.");
+                        }
                         break;
                     case "5":
                         var departments = _departmentService.GetAllDepartments();
@@ -84,5 +107,34 @@ namespace EMSPro.App
             }
         }
 
+        private bool IsAdmin()
+        {
+            if (!_isLoggedIn)
+            {
+                Authenticate();
+            }
+
+            return _isLoggedIn && _currentUser != null && AuthenticationHelper.userRoles.ContainsKey(_currentUser) && Array.Exists(AuthenticationHelper.userRoles[_currentUser], role => role == "admin");
+        }
+
+        private void Authenticate()
+        {
+            Console.Write("Enter username: ");
+            string username = Console.ReadLine();
+
+            Console.Write("Enter password: ");
+            string password = Console.ReadLine();
+
+            // Perform authentication based on AuthenticationHelper
+            if (AuthenticationHelper.users.ContainsKey(username) && AuthenticationHelper.users[username] == password)
+            {
+                _currentUser = username;
+                _isLoggedIn = true;
+            }
+            else
+            {
+                Console.WriteLine("Authentication failed.");
+            }
+        }
     }
 }

@@ -1,11 +1,6 @@
 ﻿using EMSPro.Data;
 using EMSPro.Models.Model;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EMSPro.App.Helper
 {
@@ -13,7 +8,6 @@ namespace EMSPro.App.Helper
     {
         public static void SeedData(IServiceProvider services)
         {
-            // Resolve necessary services
             using (var scope = services.CreateScope())
             {
                 var serviceProvider = scope.ServiceProvider;
@@ -32,9 +26,9 @@ namespace EMSPro.App.Helper
             if (!context.Departments.Any())
             {
                 context.Departments.AddRange(
-                    new Department { Name = "Department A" },
-                    new Department { Name = "Department B" }
-                // Add more departments as needed
+                    new Department { Name = "IT" },
+                    new Department { Name = "Account" },
+                     new Department { Name = "HR" }
                 );
 
                 context.SaveChanges();
@@ -47,9 +41,9 @@ namespace EMSPro.App.Helper
             if (!context.Roles.Any())
             {
                 context.Roles.AddRange(
-                    new Role { Name = "Role A" },
-                    new Role { Name = "Role B" }
-                // Add more roles as needed
+                    new Role { Name = "Software Engineer" },
+                    new Role { Name = "Accountant" },
+                    new Role { Name = "QA Engineer" }
                 );
 
                 context.SaveChanges();
