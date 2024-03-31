@@ -1,7 +1,5 @@
 ﻿using EMSPro.App.Helper;
 using EMSPro.Core.IService;
-using System;
-using System.Collections.Generic;
 
 namespace EMSPro.App
 {
@@ -10,8 +8,8 @@ namespace EMSPro.App
         private readonly IEmployeeService _employeeService;
         private readonly IDepartmentService _departmentService;
         private readonly IRoleService _roleService;
-        private bool _isLoggedIn = false;
-        private string _currentUser = null;
+        public bool _isLoggedIn = false;
+        public string _currentUser = null;
 
         public Application(IEmployeeService employeeService,
             IDepartmentService departmentService,
@@ -25,7 +23,7 @@ namespace EMSPro.App
         public void Processer()
         {
             DisplayMenu();
-            ProcessUserChoice();
+            ProcessUserChoice("");
         }
 
         private void DisplayMenu()
@@ -45,13 +43,13 @@ namespace EMSPro.App
             Console.WriteLine("7. Exit");
         }
 
-        private void ProcessUserChoice()
+        public void ProcessUserChoice(string choice)
         {
             bool exit = false;
             while (!exit)
             {
                 Console.Write("Enter your choice: ");
-                string choice = Console.ReadLine();
+                choice = Console.ReadLine();
 
                 switch (choice)
                 {
@@ -107,7 +105,7 @@ namespace EMSPro.App
             }
         }
 
-        private bool IsAdmin()
+        public bool IsAdmin()
         {
             if (!_isLoggedIn)
             {
@@ -117,7 +115,7 @@ namespace EMSPro.App
             return _isLoggedIn && _currentUser != null && AuthenticationHelper.userRoles.ContainsKey(_currentUser) && Array.Exists(AuthenticationHelper.userRoles[_currentUser], role => role == "admin");
         }
 
-        private void Authenticate()
+        public void Authenticate()
         {
             Console.Write("Enter username: ");
             string username = Console.ReadLine();
