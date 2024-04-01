@@ -1,6 +1,6 @@
-Employee Management System (EMS) Application
+Employee Management System (EMSPro) Application
 
-Welcome to the Employee Management System (EMS) application! This application facilitates efficient management of employees, departments, and roles within your organization. Below are detailed instructions on how to set up and effectively utilize the application:
+Welcome to the Employee Management System (EMSPro) application! This application facilitates efficient management of employees, departments, and roles within your organization. Below are detailed instructions on how to set up and effectively utilize the application:
 
 ### Setup
 
@@ -9,6 +9,7 @@ Welcome to the Employee Management System (EMS) application! This application fa
 1. Ensure you have a SQL Server database available locally.
 2. Update the `appsettings.json` file located in the MyApp project with your database connection string under the key `DefaultConnection`. 
     - Example: `"DefaultConnection": "Server=localhost;Database=EMSDB;Trusted_Connection=True;"`
+3. Update-Database (EFCore)
 
 #### Running the Application:
 
