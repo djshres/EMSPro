@@ -4,7 +4,6 @@ using EMSPro.Models.Model;
 
 namespace EMSPro.Core.Service
 {
-
     public class RoleService : IRoleService
     {
         private readonly EMSProContext _context;

@@ -1,12 +1,6 @@
 ﻿using EMSPro.Core.IService;
 using EMSPro.Data;
 using EMSPro.Models.Model;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EMSPro.Core.Service
 {
@@ -18,6 +12,7 @@ namespace EMSPro.Core.Service
         {
             _context = context;
         }
+
         public void SeedDepartment()
         {
             if (!_context.Departments.Any())

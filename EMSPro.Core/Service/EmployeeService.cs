@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EMSPro.Core.Service
 {
-
     public class EmployeeService : IEmployeeService
     {
         private readonly EMSProContext _context;
@@ -20,11 +19,15 @@ namespace EMSPro.Core.Service
             _context = context;
         }
 
+        // Time complexity: O(n)
+        // Space complexity: O(n)
         public IEnumerable<Employee> GetAllEmployees()
         {
             return _context.Employees.Include(x => x.Department).Include(x => x.Role).ToList();
         }
 
+        // Time complexity: O(n)
+        // Space complexity: O(1)
         public void PrintAllEmployees(IEnumerable<Employee> employees)
         {
             foreach (var employee in employees)
@@ -44,6 +47,8 @@ namespace EMSPro.Core.Service
 
         }
 
+        // Time complexity: O(1)
+        // Space complexity: O(1)
         public void AddEmployee()
         {
             Console.WriteLine("Enter employee details:");
@@ -79,13 +84,14 @@ namespace EMSPro.Core.Service
                 RoleId = roleId
             };
 
-            // Now you can save this employee to the database or perform any other operation
             _context.Employees.Add(employee);
             _context.SaveChanges();
 
             Console.WriteLine("New employee added successfully.");
         }
 
+        // Time complexity: O(1)
+        // Space complexity: O(1)
         public void UpdateEmployee()
         {
             Console.WriteLine("Enter employee ID to update:");
@@ -97,7 +103,7 @@ namespace EMSPro.Core.Service
             }
 
             var employee = GetEmployeeById(employeeId);
-            if(employee == null)
+            if (employee == null)
             {
                 return;
             }
@@ -141,7 +147,6 @@ namespace EMSPro.Core.Service
                 employee.ContactInfo = contactInfo;
             }
 
-            // Assuming you have a method to fetch departments and roles
             var departmentId = _departmentService.ChooseDepartment();
             if (departmentId != 0)
             {
@@ -157,16 +162,20 @@ namespace EMSPro.Core.Service
             _context.Employees.Update(employee);
             _context.SaveChanges();
 
-            // Now you can update the employee in the database or perform any other operation
             Console.WriteLine("Employee updated successfully.");
         }
 
+        // Time complexity: O(1) on average, O(n) worst case
+        // Space complexity: O(1)
         public Employee GetEmployeeById(int id)
         {
             var employee = _context.Employees.FirstOrDefault(x => x.Id == id);
             return employee;
         }
 
+
+        // Time complexity: O(1)
+        // Space complexity: O(1)
         public void DeleteEmployee()
         {
             Console.WriteLine("Enter employee ID to delete:");

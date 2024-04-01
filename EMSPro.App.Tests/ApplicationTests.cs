@@ -1,12 +1,6 @@
-﻿using NUnit.Framework;
-using Moq;
-using System;
-using System.Collections.Generic;
+﻿using EMSPro.App;
 using EMSPro.Core.IService;
-using System.IO;
-using EMSPro.App.Helper;
-using EMSPro.Models.Model;
-using EMSPro.App;
+using Moq;
 
 namespace EMSPro.Tests
 {

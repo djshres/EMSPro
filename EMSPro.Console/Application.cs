@@ -26,6 +26,8 @@ namespace EMSPro.App
             ProcessUserChoice("");
         }
 
+        // Time complexity: O(1)
+        // Space complexity: O(1)
         private void DisplayMenu()
         {
             Console.WriteLine("  EEEEE  M   M  SSSSS    PPPP    RRRR    OOO  ");
